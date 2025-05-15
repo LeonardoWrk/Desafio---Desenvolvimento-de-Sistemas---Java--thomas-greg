@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.company.crs</groupId>
+    <artifactId>client-reg-sys</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+
+    <name>Client Registration System</name>
+    <description>A client registration system with JSF and PrimeFaces</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>8</maven.compiler.source>
+        <maven.compiler.target>8</maven.compiler.target>
+        <jsf.version>3.0.0</jsf.version>
+        <primefaces.version>13.0.0</primefaces.version>
+        <jakarta.servlet.version>5.0.0</jakarta.servlet.version>
+        <jakarta.faces.version>3.0.0</jakarta.faces.version>
+    </properties>
+
+    <dependencies>
+
+        <!-- Jakarta Servlet API -->
+        <dependency>
+            <groupId>jakarta.servlet</groupId>
+            <artifactId>jakarta.servlet-api</artifactId>
+            <version>${jakarta.servlet.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- PrimeFaces (Jakarta) -->
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>${primefaces.version}</version>
+            <classifier>jakarta</classifier>
+        </dependency>
+
+        <!-- PrimeFaces Icons -->
+        <dependency>
+            <groupId>org.webjars.npm</groupId>
+            <artifactId>primeicons</artifactId>
+            <version>6.0.1</version>
+        </dependency>
+
+        <!-- Commons FileUpload (for file uploads) -->
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.5</version>
+        </dependency>
+
+        <!-- Commons IO (for file handling) -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.13.0</version>
+        </dependency>
+
+        <!-- Jackson for JSON processing (for REST API calls) -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.15.2</version>
+        </dependency>
+
+        <!-- Jakarta CDI API -->
+        <dependency>
+            <groupId>jakarta.enterprise</groupId>
+            <artifactId>jakarta.enterprise.cdi-api</artifactId>
+            <version>3.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>jakarta.faces</groupId>
+            <artifactId>jakarta.faces-api</artifactId>
+            <version>3.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Jakarta Bean Validation API -->
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>3.0.0</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>client-registration-system</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.4.0</version>
+                <configuration>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                </configuration>
+            </plugin>
+
+            
+
+<plugin>
+    <groupId>org.wildfly.plugins</groupId>
+    <artifactId>wildfly-maven-plugin</artifactId>
+    <version>3.0.2.Final</version>
+    <configuration>
+        <hostname>localhost</hostname>
+        <port>9990</port> 
+        <username>admin</username>
+        <password>Admin#123</password>
+    </configuration>
+</plugin>
+
+        </plugins>
+    </build>
+</project>

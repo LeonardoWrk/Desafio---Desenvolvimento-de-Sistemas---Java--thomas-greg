@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/layout.xhtml">
+    <ui:define name="title">Painel - Sistema de Cadastro de Clientes</ui:define>
+
+    <ui:define name="breadcrumb">
+        <p:breadCrumb>
+            <p:menuitem value="Home" outcome="/index.xhtml?faces-redirect=true" />
+            <p:menuitem value="Dashboard" url="/secured/dashboard.xhtml" />
+        </p:breadCrumb>
+    </ui:define>
+    
+    <ui:define name="page-title">Dashboard</ui:define>
+    
+    <ui:define name="content">
+        <div class="card">
+            <h2>Bem-vindo, #{authenticationBean.currentUser != null ? authenticationBean.currentUser.username : 'Visitante'}!</h2>
+            <p>Esta é uma página segura que requer autenticação.</p>
+            
+            <h:panelGroup rendered="#{authenticationBean.loggedIn}">
+                <p:panel header="User Information" styleClass="mt-3">
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+                        <p:outputLabel for="username" value="Username:" />
+                        <h:outputText id="username" value="#{authenticationBean.currentUser.username}" />
+                        
+                        <p:outputLabel for="roles" value="Roles:" />
+                        <h:outputText id="roles" value="#{authenticationBean.currentUser.roles}" />
+                        
+                        <p:outputLabel for="token" value="JWT Token:" />
+                        <p:inputTextarea id="token" value="#{authenticationBean.currentUser.jwtToken}" readonly="true" rows="3" />
+                    </p:panelGrid>
+                </p:panel>
+                
+                <p:panel header="System Information" styleClass="mt-3">
+                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+                        <p:outputLabel value="Session ID:" />
+                        <h:outputText value="#{authenticationBean.sessionId}" />
+                        
+                        <p:outputLabel value="Session Creation Time:" />
+                        <h:outputText value="#{authenticationBean.sessionCreationTime}">
+                            <f:convertDateTime pattern="yyyy-MM-dd HH:mm:ss" />
+                        </h:outputText>
+                        
+                        <p:outputLabel value="Session Timeout:" />
+                        <h:outputText value="#{authenticationBean.sessionTimeout} seconds" />
+                    </p:panelGrid>
+                </p:panel>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{!authenticationBean.loggedIn}">
+                <p:panel header="Access Denied" styleClass="mt-3 ui-panel-danger">
+                    <p>Você precisa estar logado para visualizar esta página.</p>
+                    <p:button value="Login" outcome="/login.xhtml" icon="pi pi-sign-in" styleClass="ui-button-primary"/>
+                </p:panel>
+            </h:panelGroup>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>

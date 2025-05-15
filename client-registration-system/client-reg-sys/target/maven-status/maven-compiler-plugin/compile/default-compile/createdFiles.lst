@@ -1,0 +1,12 @@
+com\company\crs\bean\ClientBean.class
+com\company\crs\filter\SecurityFilter.class
+com\company\crs\util\JwtUtil.class
+com\company\crs\model\Client.class
+com\company\crs\util\ApiClient.class
+com\company\crs\bean\ClientBean$1.class
+com\company\crs\model\User.class
+com\company\crs\bean\LayoutBean.class
+com\company\crs\model\Address.class
+com\company\crs\util\AuthenticationPhaseListener.class
+com\company\crs\bean\AuthenticationBean.class
+com\company\crs\util\FacesUtils.class

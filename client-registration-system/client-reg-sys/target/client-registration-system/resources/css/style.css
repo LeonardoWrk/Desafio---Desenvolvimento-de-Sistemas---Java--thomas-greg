@@ -1,0 +1,247 @@
+/* Main Layout Styles */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.layout-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Topbar Styles */
+.layout-topbar {
+    background-color: #2196F3;
+    color: #ffffff;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.layout-topbar-logo {
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    height: 40px;
+    margin-right: 10px;
+}
+
+.app-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.menu-button {
+    margin-left: 20px;
+    color: #ffffff;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    transition: background-color 0.3s;
+}
+
+.menu-button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.topbar-menu {
+    margin-left: auto;
+}
+
+.topbar-menu ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.topbar-menu li {
+    margin-left: 10px;
+}
+
+.topbar-menu a {
+    color: #ffffff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.topbar-menu a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.topbar-menu i {
+    margin-right: 8px;
+}
+
+/* Sidebar Styles */
+.layout-sidebar {
+    width: 250px;
+    background-color: #ffffff;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 60px;
+    left: 0;
+    bottom: 0;
+    z-index: 999;
+    transition: transform 0.3s, width 0.3s;
+    overflow-y: auto;
+}
+
+.layout-sidebar-collapsed .layout-sidebar {
+    width: 60px;
+}
+
+.layout-sidebar-collapsed .layout-menu .ui-menu-list span.ui-menuitem-text,
+.layout-sidebar-collapsed .layout-menu .ui-submenu-title span.ui-menuitem-text {
+    display: none;
+}
+
+.layout-menu {
+    padding: 15px;
+}
+
+/* Main Content Styles */
+.layout-main {
+    margin-left: 250px;
+    margin-top: 60px;
+    flex: 1;
+    transition: margin-left 0.3s;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 60px);
+}
+
+.layout-sidebar-collapsed .layout-main {
+    margin-left: 60px;
+}
+
+.layout-breadcrumb {
+    padding: 15px 20px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.layout-content-title {
+    padding: 0 20px;
+    margin-top: 10px;
+}
+
+.layout-content-title h1 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #424242;
+    margin: 0;
+}
+
+.layout-messages {
+    padding: 0 20px;
+}
+
+.layout-content {
+    padding: 20px;
+    flex: 1;
+}
+
+/* Footer Styles */
+.layout-footer {
+    background-color: #f5f5f5;
+    border-top: 1px solid #e0e0e0;
+    padding: 15px 20px;
+    font-size: 0.9rem;
+    color: #757575;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Form Styles */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.form-section {
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.form-section-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: #424242;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Card Styles */
+.card {
+    background-color: #ffffff;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.card-title {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-bottom: 15px;
+    color: #424242;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 10px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .layout-sidebar {
+        transform: translateX(-100%);
+    }
+    
+    .layout-main {
+        margin-left: 0;
+    }
+    
+    .layout-sidebar-collapsed .layout-sidebar {
+        transform: translateX(0);
+    }
+    
+    .layout-sidebar-collapsed .layout-main {
+        margin-left: 0;
+    }
+}

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/layout.xhtml">
+    <ui:define name="title">Lista de Clientes</ui:define>
+    <ui:define name="content">
+        <f:event type="preRenderView" listener="#{clientBean.carregarClientes}" />
+
+        <!-- Diálogo de Edição -->
+        <p:dialog id="dlgCliente" widgetVar="dlgCliente" header="Editar Cliente" modal="true" resizable="false" width="750" closable="true">
+            <h:form id="formClienteDialog" enctype="multipart/form-data">
+
+                <p:messages id="messages" showDetail="true" closable="true" />
+
+                <p:fieldset legend="Dados do Cliente" style="margin-bottom: 20px;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                        <div style="flex: 1 1 45%; min-width: 200px; display: flex; flex-direction: column;">
+                            <p:outputLabel for="nome" value="Nome" />
+                            <p:inputText id="nome" value="#{clientBean.client.nome}" required="true" style="width: 100%;" />
+                        </div>
+
+                        <div style="flex: 1 1 45%; min-width: 200px; display: flex; flex-direction: column;">
+                            <p:outputLabel for="email" value="Email" />
+                            <p:inputText id="email" value="#{clientBean.client.email}" required="true" style="width: 100%;" />
+                        </div>
+
+                        <div style="flex: 1 1 100%; display: flex; flex-direction: column;">
+                            <p:outputLabel for="logotipo" value="Logotipo" />
+                            <p:fileUpload id="logotipo" value="#{clientBean.logotipo}" mode="simple" />
+                        </div>
+                    </div>
+                </p:fieldset>
+
+                <p:fieldset legend="Endereço" style="margin-bottom: 20px;">
+                    <div style="display: flex; flex-wrap: wrap; gap: 1rem;">
+                        <div style="flex: 1 1 45%; min-width: 200px; display: flex; flex-direction: column;">
+                            <p:outputLabel for="street" value="Rua" />
+                            <p:inputText id="street" value="#{clientBean.novoAddress.street}" style="width: 100%;" />
+                        </div>
+
+                        <div style="flex: 1 1 45%; min-width: 200px; display: flex; flex-direction: column;">
+                            <p:outputLabel for="number" value="Número" />
+                            <p:inputText id="number" value="#{clientBean.novoAddress.number}" style="width: 100%;" />
+                        </div>
+
+                        <div style="flex: 1 1 45%; min-width: 200px; display: flex; flex-direction: column;">
+                            <p:outputLabel for="complement" value="Complemento" />
+                            <p:inputText id="complement" value="#{clientBean.novoAddress.complement}" style="width: 100%;" />
+                        </div>
+
+                        <div style="flex: 1 1 45%; min-width: 200px; display: flex; flex-direction: column;">
+                            <p:outputLabel for="neighborhood" value="Bairro" />
+                            <p:inputText id="neighborhood" value="#{clientBean.novoAddress.neighborhood}" style="width: 100%;" />
+                        </div>
+
+                        <div style="flex: 1 1 45%; min-width: 200px; display: flex; flex-direction: column;">
+                            <p:outputLabel for="city" value="Cidade" />
+                            <p:inputText id="city" value="#{clientBean.novoAddress.city}" style="width: 100%;" />
+                        </div>
+
+                        <div style="flex: 1 1 45%; min-width: 200px; display: flex; flex-direction: column;">
+                            <p:outputLabel for="state" value="Estado" />
+                            <p:inputText id="state" value="#{clientBean.novoAddress.state}" style="width: 100%;" />
+                        </div>
+
+                        <div style="flex: 1 1 45%; min-width: 200px; display: flex; flex-direction: column;">
+                            <p:outputLabel for="zipCode" value="CEP" />
+                            <p:inputText id="zipCode" value="#{clientBean.novoAddress.zipCode}" style="width: 100%;" />
+                        </div>
+
+                        <div style="flex: 1 1 100%; margin-top: 1rem;">
+                            <p:commandButton value="#{not empty clientBean.novoAddress.id ? 'Atualizar' : 'Adicionar'}"
+                                             action="#{clientBean.addAddress}"
+                                             update="enderecoTable messages :formClienteDialog"
+                                             style="width: 150px;" />
+                        </div>
+                    </div>
+                </p:fieldset>
+
+                <p:dataTable id="enderecoTable" var="addr" value="#{clientBean.client.addresses}"
+                             selection="#{clientBean.selectedAddress}" selectionMode="single" rowKey="#{addr.id}"
+                             style="margin-top:20px" responsiveLayout="scroll">
+
+                    <p:column selectionMode="single" style="width:30px"/>
+
+                    <p:column headerText="Rua">
+                        <h:outputText value="#{addr.street}" />
+                    </p:column>
+
+                    <p:column headerText="Cidade">
+                        <h:outputText value="#{addr.city}" />
+                    </p:column>
+
+                    <p:column headerText="Estado">
+                        <h:outputText value="#{addr.state}" />
+                    </p:column>
+
+                    <p:column style="width: 50px;">
+                        <p:commandButton icon="pi pi-trash"
+                                         action="#{clientBean.removeAddress(addr)}"
+                                         update="enderecoTable :formClienteDialog"
+                                         title="Remover"
+                                         styleClass="p-button-text p-button-danger" />
+                    </p:column>
+
+                    <p:ajax event="rowSelect"
+                            listener="#{clientBean.onRowSelect}"
+                            update=":formClienteDialog:street :formClienteDialog:number :formClienteDialog:complement :formClienteDialog:neighborhood :formClienteDialog:city :formClienteDialog:state :formClienteDialog:zipCode" />
+
+                    <p:ajax event="rowUnselect"
+                            listener="#{clientBean.onRowUnselect}"
+                            update=":formClienteDialog:street :formClienteDialog:number :formClienteDialog:complement :formClienteDialog:neighborhood :formClienteDialog:city :formClienteDialog:state :formClienteDialog:zipCode" />
+
+                </p:dataTable>
+
+                <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px;">
+                    <p:commandButton value="Cancelar"
+                                     action="#{clientBean.cancelar}"
+                                     ajax="false"
+                                     immediate="true"
+                                     process="@this"
+                                     icon="pi pi-times"
+                                     styleClass="ui-button-secondary" />
+
+                    <p:commandButton value="Salvar"
+                                     action="#{clientBean.atualizar}"
+                                     icon="pi pi-check"
+                                     update=":formClientes:clientesTable messages"
+                                     oncomplete="if(!args.validationFailed) PF('dlgCliente').hide()"
+                                     styleClass="ui-button-primary" />
+                </div>
+
+            </h:form>
+        </p:dialog>
+
+        <!-- Lista Principal de Clientes -->
+        <h:form id="formClientes">
+            <p:toolbar style="margin-bottom: 20px;">
+                <f:facet name="left">
+                    <p:commandButton value="Novo Cliente"
+                                     action="/register.xhtml?faces-redirect=true"
+                                     icon="pi pi-plus"
+                                     styleClass="p-button-success" />
+                </f:facet>
+            </p:toolbar>
+
+            <p:dataTable id="clientesTable" var="cliente"
+                         value="#{clientBean.clientes}"
+                         paginator="true" rows="10"
+                         emptyMessage="Nenhum cliente cadastrado"
+                         styleClass="p-datatable-gridlines"
+                         currentPageReportTemplate="{totalRecords} registros encontrados"
+                         paginatorTemplate="{FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="5,10,15"
+                         rowKey="#{cliente.id}">
+
+                <p:column headerText="ID" style="width: 80px;">
+                    <h:outputText value="#{cliente.id}" />
+                </p:column>
+
+                <p:column headerText="Nome">
+                    <h:outputText value="#{cliente.nome}" />
+                </p:column>
+
+                <p:column headerText="Email">
+                    <h:outputText value="#{cliente.email}" />
+                </p:column>
+
+                <p:column headerText="Endereços" style="width: 100px;">
+                    <h:outputText value="#{empty cliente.addresses ? 0 : cliente.addresses.size()}" />
+                </p:column>
+
+                <p:column headerText="Ações" style="width: 150px;">
+                    <p:commandButton icon="pi pi-pencil"
+                                     title="Editar"
+                                     action="#{clientBean.editar(cliente)}"
+                                     update=":formClienteDialog"
+                                     oncomplete="PF('dlgCliente').show()"
+                                     styleClass="p-button-text p-button-plain" />
+
+                    <p:commandButton icon="pi pi-trash"
+                                     title="Excluir"
+                                     action="#{clientBean.excluir(cliente)}"
+                                     update="@form"
+                                     process="@this"
+                                     styleClass="p-button-text p-button-danger" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+</ui:composition>
+
+</html>

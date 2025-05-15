@@ -1,0 +1,21 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "type": "java",
+        "name": "Debug WildFly Remote",
+        "request": "attach",
+        "hostName": "localhost",
+        "port": 8787,
+       "stepFilters": {
+        "skipClasses": [
+          "java.*",
+          "javax.*",
+          "sun.*",
+          "com.seupacote.suaclasse.*"
+        ]
+        }
+      }
+    ]
+  }
+  

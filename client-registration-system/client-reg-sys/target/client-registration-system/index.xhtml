@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/templates/layout.xhtml">
+    <ui:define name="title">Home - Sistema de Cadastro de Clientes</ui:define>
+    
+    <ui:define name="breadcrumb">
+        <p:breadCrumb>
+            <p:menuitem value="Home" url="index.xhtml" />
+        </p:breadCrumb>
+    </ui:define>
+    
+    <ui:define name="page-title">Bem-vindo à Página Inicial do Sistema de Cadastro de Clientes</ui:define>
+    
+    <ui:define name="content">
+        <div class="card">
+            <div class="card-title">System Overview</div>
+            
+            <p>
+                Bem-vindo ao Sistema de Cadastro de Clientes, #{authenticationBean.currentUser.username}!
+                Este aplicativo permite que você gerencie clientes e seus endereços.
+            </p>
+            
+            <p>
+                Use o menu à esquerda para navegar pelas funcionalidades do sistema.
+            </p>
+            
+            <div class="p-grid">
+                <div class="p-col-12 p-md-4">
+                    <p:panel header="Gestão de Clientes">
+                        <h:panelGrid columns="1" cellpadding="10">
+                            <p:graphicImage name="images/clients.png" width="100" rendered="false" />
+                            <h:outputText value="Cadastrar e gerenciar clientes com suas informações.." />
+                            <p:button value="Manage Clients" icon="pi pi-users" styleClass="ui-button-success" 
+                                     outcome="/secured/listaClientes" style="margin-right: 10px;" />
+                            <p:button value="New Client" icon="pi pi-plus" styleClass="ui-button-primary" 
+                                     outcome="/secured/register" />
+                        </h:panelGrid>
+                    </p:panel>
+                </div>
+                
+                <div class="p-col-12 p-md-4">
+                    <p:panel header="Gestão de Endereços">
+                        <h:panelGrid columns="1" cellpadding="10">
+                            <p:graphicImage name="images/address.png" width="100" rendered="false" />
+                            <h:outputText value="Adicionar múltiplos endereços para cada cliente." />
+                            <p:button value="Manage Addresses" icon="pi pi-map-marker" styleClass="ui-button-info" 
+                                     outcome="/secured/listaClientes" style="margin-right: 10px;" />
+                        </h:panelGrid>
+                    </p:panel>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-title">Atalhos</div>
+            
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:button value="#{ClientBean.teste}" icon="pi pi-list" styleClass="ui-button-primary btn-spacing" 
+                        outcome="/secured/listaClientes" style="margin-right: 10px;" />
+                    <p:button value="Novo Cliente" icon="pi pi-user-plus" styleClass="ui-button-primary btn-spacing"
+                        outcome="/secured/register" />
+                </p:toolbarGroup>
+                <p:toolbarGroup align="right">
+                    <p:button value="Dashboard" icon="pi pi-th-large" styleClass="ui-button-help" 
+                              outcome="/secured/dashboard" />
+                </p:toolbarGroup>
+            </p:toolbar>
+        </div>
+        
+        <div class="card">
+            <div class="card-title">Status de Autenticação</div>
+            
+            <p:panel header="Current User" toggleable="true" collapsed="true">
+                <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank ui-fluid">
+                    <p:outputLabel value="Logged In:" />
+                    <h:outputText value="#{authenticationBean.loggedIn ? 'Yes' : 'No'}" />
+                    
+                    <p:outputLabel value="Username:" rendered="#{authenticationBean.loggedIn}" />
+                    <h:outputText value="#{authenticationBean.currentUser.username}" rendered="#{authenticationBean.loggedIn}" />
+                    
+                    <p:outputLabel value="Roles:" rendered="#{authenticationBean.loggedIn}" />
+                    <h:outputText value="#{authenticationBean.currentUser.roles}" rendered="#{authenticationBean.loggedIn}" />
+                </p:panelGrid>
+                
+                <f:facet name="footer">
+                    <h:form>
+                        <p:commandButton value="Logout" icon="pi pi-sign-out" 
+                                        action="#{authenticationBean.logout}" 
+                                        styleClass="ui-button-danger" 
+                                        rendered="#{authenticationBean.loggedIn}" />
+                    </h:form>
+                </f:facet>
+            </p:panel>
+        </div>
+    </ui:define>
+</ui:composition>
+</html>
