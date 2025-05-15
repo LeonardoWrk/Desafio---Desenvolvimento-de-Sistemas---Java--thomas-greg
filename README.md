@@ -3,7 +3,7 @@
 
 ## ✅ Tecnologias Utilizadas
 
-- Java 8 (JDK + JRE)
+- Java 8 (JDK + JRE) -> baixar essa versao https://www.java.com/pt-BR/download/?locale=pt_BR
 - Maven 3.9.9
 - Wildfly (Deployment do Frontend WAR)
 - Spring Boot (Backend API)
@@ -29,8 +29,8 @@ Antes de rodar o projeto, certifique-se de ter instalado:
 
 ### 1️⃣ Preparar Ambiente
 
-- Copie a pasta **java** do repositório para `C:\Program Files\`
 - Execute o script `maven.bat` para configurar o Maven
+- baixar essa exato versao do wildfly https://we.tl/t-5iwt2ODCTG e depois extrair no C:\
 - Execute o script `frontDeployWildfly.bat` para deploy do frontend
 
 ### 2️⃣ Banco de Dados (Docker Compose)
@@ -75,13 +75,6 @@ Exemplo de requisição (POST):
 }
 ```
 
-### 5️⃣ Verificar API
-
-Confirme se a API responde corretamente:
-
-- [http://localhost:8080/api/clients](http://localhost:8080/api/clients)
-
----
 
 ## 🗒️ Observações Importantes
 
@@ -92,7 +85,7 @@ Confirme se a API responde corretamente:
 
 ---
 
-## 🔑 Usuário Padrão (Exemplo de Criação)
+## 🔑 Usuário Admin
 
 | Usuário | Senha     |
 |---------|-----------|
