@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   sqlserver:
-    image: mcr.microsoft.com/mssql/server:2017-latest
+    build: .
     container_name: sqlserver2017
     environment:
       SA_PASSWORD: "SenhaThomas123!"
@@ -11,9 +11,7 @@ services:
       - "1433:1433"
     volumes:
       - sqlserverdata:/var/opt/mssql
-      - ./init-sql:/init-sql
     restart: unless-stopped
-    command: /bin/bash -c "/opt/mssql/bin/sqlservr & sleep 20 && /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P 'SenhaThomas123!' -i /init-sql/init.sql"
 
 volumes:
   sqlserverdata:
